@@ -26,9 +26,6 @@ public class DomainUtil implements ActionListener, ILookupListener {
     private IDomainRequest domainRequest;
     private LinkedList<LookupThread> lookupThreads = new LinkedList<>();
     
-    private int totalDomains=0;
-    private int processed=0;
-    
     private Map<String, Record[]> results = new LinkedHashMap<>();
 
     void addDomainRequestListener(IDomainRequest domainPanel) {
@@ -61,8 +58,7 @@ public class DomainUtil implements ActionListener, ILookupListener {
                     log.error("error creating a new lookup for domain '" + domainsName1 + "'", ex);
                 }
             }
-            totalDomains = lookupThreads.size();
-            processed=0;
+            
             for (LookupThread lookupThread : lookupThreads) {
                 lookupThread.start();
             }
@@ -86,6 +82,7 @@ public class DomainUtil implements ActionListener, ILookupListener {
             } else {
                 text = mx.toString();
             }
+            log.info("[i] "+domainName+": "+text);
         }
 
     }
